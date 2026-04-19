@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red-String Theory</title>
+  <meta property="og:title" content="Red-String Theory">
+  <meta property="og:description" content="Type 5 boring things about your week. Get the grand unified conspiracy theory connecting them.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+  <script src="feedback.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Input screen -->
+    <section id="input-screen" class="screen">
+      <div class="title-stack">
+        <h1 class="banner-title">RED-STRING THEORY</h1>
+        <p class="subtitle">five innocent things about your week &mdash; one grand unified conspiracy.</p>
+      </div>
+      <form id="input-form" autocomplete="off">
+        <label class="field">
+          <span class="field-label">CASE #1</span>
+          <input class="field-input" type="text" maxlength="80" data-index="0" placeholder="spilled coffee on a Tuesday">
+        </label>
+        <label class="field">
+          <span class="field-label">CASE #2</span>
+          <input class="field-input" type="text" maxlength="80" data-index="1" placeholder="saw the same dog three times">
+        </label>
+        <label class="field">
+          <span class="field-label">CASE #3</span>
+          <input class="field-input" type="text" maxlength="80" data-index="2" placeholder="received a cryptic LinkedIn message">
+        </label>
+        <label class="field">
+          <span class="field-label">CASE #4</span>
+          <input class="field-input" type="text" maxlength="80" data-index="3" placeholder="found a penny heads-up">
+        </label>
+        <label class="field">
+          <span class="field-label">CASE #5</span>
+          <input class="field-input" type="text" maxlength="80" data-index="4" placeholder="got an Amazon package I didn't order">
+        </label>
+        <div class="form-error" id="form-error" aria-live="polite"></div>
+        <button type="submit" id="submit-btn" class="btn-primary">CONNECT THE DOTS</button>
+      </form>
+    </section>
+
+    <!-- Loading screen -->
+    <section id="loading-screen" class="screen hidden">
+      <div class="loading-wrap">
+        <div class="red-dot" aria-hidden="true"></div>
+        <p class="loading-text">tracing connections...</p>
+        <p class="loading-sub">cross-referencing the mundane.</p>
+      </div>
+    </section>
+
+    <!-- Result screen -->
+    <section id="result-screen" class="screen hidden">
+      <div id="corkboard" class="corkboard">
+        <div class="banner">
+          <h2 id="theory-title" class="theory-title">THE OAT MILK CORVID ACCORD</h2>
+          <div id="threat-pill" class="threat-pill">
+            <span class="threat-label">THREAT LEVEL:</span>
+            <span id="threat-value" class="threat-value">MAUVE</span>
+          </div>
+        </div>
+        <div class="board-stage" id="board-stage">
+          <svg id="string-svg" class="string-svg" preserveAspectRatio="none"></svg>
+          <div id="cards-layer" class="cards-layer"></div>
+          <div class="classified-stamp" aria-hidden="true">CLASSIFIED</div>
+        </div>
+      </div>
+      <div id="share" class="share-row">
+        <button id="share-btn" onclick="share()" class="btn-primary">SHARE THIS BOARD</button>
+        <button id="reset-btn" class="btn-secondary">START OVER</button>
+      </div>
+      <p class="footer-note">shareable URL captures exactly these five items.</p>
+    </section>
+  </div>
+</body>
+</html>

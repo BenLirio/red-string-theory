@@ -1,0 +1,456 @@
+/* Aesthetic: Charlie Kelly "Pepe Silvia" corkboard / Always Sunny mail room — kraft paper, pinned index cards, red string, typewriter + display slab */
+
+:root {
+  --cork-dark: #6d4a26;
+  --cork-light: #8a6233;
+  --kraft: #c9a677;
+  --kraft-dark: #a8823e;
+  --index-card: #f3ead2;
+  --index-card-shadow: rgba(24, 12, 0, 0.35);
+  --tape: rgba(245, 235, 200, 0.75);
+  --ink: #1d140a;
+  --ink-soft: #3a2a16;
+  --red-string: #b5281d;
+  --red-string-glow: rgba(181, 40, 29, 0.55);
+  --stamp-red: #9a1c13;
+  --banner-dark: #1a0f05;
+  --accent-cream: #f1e7c6;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #1a0f05;
+  color: var(--ink);
+  font-family: "Special Elite", "Courier Prime", "IBM Plex Mono", ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #8a6233;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(0,0,0,0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 40%, rgba(0,0,0,0.14) 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 75%, rgba(0,0,0,0.16) 0 2px, transparent 3px),
+    radial-gradient(circle at 85% 85%, rgba(0,0,0,0.12) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 25% 55%, rgba(255,220,160,0.10) 0 2px, transparent 3px),
+    linear-gradient(135deg, #8a6233 0%, #6d4a26 100%);
+  background-size: 180px 180px, 220px 220px, 260px 260px, 160px 160px, 200px 200px, 100% 100%;
+}
+
+#app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 16px 120px;
+}
+
+.screen.hidden { display: none !important; }
+
+/* ----- INPUT SCREEN ----- */
+
+.title-stack {
+  text-align: center;
+  margin: 18px 0 22px;
+}
+
+.banner-title {
+  font-family: "Archivo Black", "Rubik Mono One", system-ui, sans-serif;
+  font-size: clamp(32px, 9vw, 52px);
+  line-height: 1;
+  margin: 0 0 10px;
+  color: var(--accent-cream);
+  letter-spacing: 0.02em;
+  text-shadow: 3px 3px 0 #0b0602, 0 0 18px rgba(0,0,0,0.4);
+  transform: rotate(-1.2deg);
+}
+
+.subtitle {
+  margin: 0;
+  font-family: "Special Elite", monospace;
+  color: var(--accent-cream);
+  font-size: clamp(13px, 3.6vw, 16px);
+  opacity: 0.92;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+#input-form {
+  background: var(--index-card);
+  border: 1px solid #7b5828;
+  padding: 18px 16px 20px;
+  box-shadow:
+    0 8px 22px var(--index-card-shadow),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+  position: relative;
+  transform: rotate(-0.4deg);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0 1px, transparent 1px 3px);
+}
+
+#input-form::before,
+#input-form::after {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 18px;
+  background: var(--tape);
+  top: -10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  border-left: 1px dashed rgba(0,0,0,0.1);
+  border-right: 1px dashed rgba(0,0,0,0.1);
+}
+#input-form::before { left: 18%; transform: rotate(-6deg); }
+#input-form::after  { right: 16%; transform: rotate(4deg); }
+
+.field {
+  display: block;
+  margin: 0 0 12px;
+}
+
+.field-label {
+  display: inline-block;
+  font-family: "Archivo Black", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--stamp-red);
+  margin-bottom: 4px;
+  padding: 2px 6px;
+  border: 1.5px solid var(--stamp-red);
+  border-radius: 2px;
+  background: rgba(255,255,255,0.5);
+}
+
+.field-input {
+  display: block;
+  width: 100%;
+  padding: 10px 10px;
+  border: 0;
+  border-bottom: 2px solid var(--ink-soft);
+  background: transparent;
+  font-family: "Special Elite", monospace;
+  font-size: 16px;
+  color: var(--ink);
+  outline: none;
+  min-height: 44px;
+}
+
+.field-input:focus {
+  border-bottom-color: var(--stamp-red);
+  background: rgba(181, 40, 29, 0.04);
+}
+
+.field-input::placeholder {
+  color: rgba(29, 20, 10, 0.45);
+  font-style: italic;
+}
+
+.form-error {
+  color: var(--stamp-red);
+  font-family: "Special Elite", monospace;
+  font-size: 13px;
+  min-height: 1.2em;
+  margin: 6px 2px 4px;
+}
+
+.btn-primary, .btn-secondary {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  padding: 14px 18px;
+  border-radius: 2px;
+  cursor: pointer;
+  min-height: 48px;
+  text-transform: uppercase;
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
+}
+
+.btn-primary {
+  background: var(--stamp-red);
+  color: var(--accent-cream);
+  border: 2px solid #5c0e08;
+  box-shadow: 3px 3px 0 #2a0604, inset 0 0 0 1px rgba(255,255,255,0.08);
+  width: 100%;
+}
+
+.btn-primary:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #2a0604; }
+.btn-primary:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #2a0604; }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-cream);
+  border: 2px solid var(--accent-cream);
+}
+
+.btn-secondary:hover { background: rgba(241,231,198,0.1); }
+
+/* ----- LOADING SCREEN ----- */
+
+.loading-wrap {
+  text-align: center;
+  padding: 80px 16px 40px;
+  color: var(--accent-cream);
+  font-family: "Special Elite", monospace;
+}
+
+.red-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--red-string);
+  margin: 0 auto 20px;
+  box-shadow: 0 0 20px var(--red-string-glow), 0 0 40px var(--red-string-glow);
+  animation: rs-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes rs-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.55; }
+}
+
+.loading-text {
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.45);
+}
+
+.loading-sub {
+  font-size: 14px;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* ----- RESULT / CORKBOARD ----- */
+
+.corkboard {
+  position: relative;
+  background-color: var(--kraft);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.2) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 55% 70%, rgba(0,0,0,0.17) 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 25%, rgba(0,0,0,0.14) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 10% 85%, rgba(255,220,160,0.12) 0 2px, transparent 3px),
+    linear-gradient(160deg, #b88e56 0%, #8a6233 100%);
+  background-size: 140px 140px, 200px 200px, 170px 170px, 180px 180px, 100% 100%;
+  border: 6px solid #3d2710;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 40px rgba(0,0,0,0.35);
+  padding: 14px 14px 10px;
+  margin: 10px 0 18px;
+  overflow: hidden;
+}
+
+.banner {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 10px 8px 12px;
+}
+
+.theory-title {
+  font-family: "Archivo Black", sans-serif;
+  color: var(--accent-cream);
+  font-size: clamp(22px, 6.4vw, 38px);
+  line-height: 1.05;
+  margin: 0 0 10px;
+  letter-spacing: 0.01em;
+  text-shadow: 2px 2px 0 #0b0602, 0 0 16px rgba(0,0,0,0.5);
+  text-transform: uppercase;
+  word-wrap: break-word;
+}
+
+.threat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #0b0602;
+  border: 2px solid var(--accent-cream);
+  color: var(--accent-cream);
+  font-family: "Archivo Black", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.threat-value {
+  color: var(--red-string);
+  letter-spacing: 0.18em;
+}
+
+/* Stage holds cards + svg overlay */
+.board-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  min-height: 420px;
+  max-height: 600px;
+  margin: 0 auto;
+}
+
+.string-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.cards-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.card {
+  position: absolute;
+  width: clamp(105px, 30%, 170px);
+  min-height: 88px;
+  max-width: 42%;
+  background: var(--index-card);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.04) 0 1px, transparent 1px 22px);
+  padding: 10px 10px 10px;
+  font-family: "Special Elite", monospace;
+  color: var(--ink);
+  font-size: 11px;
+  line-height: 1.35;
+  box-shadow:
+    3px 4px 10px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(0,0,0,0.06);
+  border: 1px solid #b9a371;
+  transform-origin: center center;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 54px;
+  height: 16px;
+  background: var(--tape);
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  border-left: 1px dashed rgba(0,0,0,0.1);
+  border-right: 1px dashed rgba(0,0,0,0.1);
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--red-string);
+  border-radius: 50%;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5), inset -1px -1px 2px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.card-head {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--stamp-red);
+  margin-bottom: 4px;
+  display: inline-block;
+  padding: 1px 4px;
+  border: 1px solid var(--stamp-red);
+}
+
+.card-input {
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 3px 0 6px;
+  word-wrap: break-word;
+  text-decoration: underline;
+  text-decoration-color: rgba(181, 40, 29, 0.55);
+  text-decoration-style: wavy;
+  text-underline-offset: 3px;
+}
+
+.card-annot {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  font-style: italic;
+  word-wrap: break-word;
+}
+
+.string-label {
+  font-family: "Special Elite", monospace;
+  font-size: 9px;
+  fill: var(--ink);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.string-label-bg {
+  fill: var(--accent-cream);
+  stroke: var(--ink);
+  stroke-width: 0.5;
+}
+
+.classified-stamp {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(18px, 5.2vw, 28px);
+  color: var(--stamp-red);
+  border: 4px double var(--stamp-red);
+  padding: 4px 10px;
+  transform: rotate(-14deg);
+  letter-spacing: 0.1em;
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: 4;
+  background: rgba(255,240,200,0.12);
+  text-shadow: 0 0 2px rgba(154,28,19,0.5);
+  mix-blend-mode: multiply;
+}
+
+/* ----- SHARE ROW ----- */
+.share-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.share-row .btn-primary { flex: 2 1 60%; }
+.share-row .btn-secondary { flex: 1 1 30%; }
+
+.footer-note {
+  text-align: center;
+  color: var(--accent-cream);
+  opacity: 0.7;
+  font-size: 12px;
+  font-family: "Special Elite", monospace;
+  margin-top: 14px;
+}
+
+/* ----- MOBILE TWEAKS ----- */
+@media (max-width: 420px) {
+  #app { padding: 12px 10px 120px; }
+  .corkboard { padding: 10px 8px 8px; }
+  .board-stage { min-height: 380px; }
+  .card { font-size: 10px; }
+  .card-input { font-size: 11.5px; }
+  .card-annot { font-size: 9.5px; }
+  .classified-stamp { top: 6px; right: 6px; }
+}
+
+@media (min-width: 700px) {
+  .board-stage { aspect-ratio: 4 / 3; max-height: 640px; }
+  .card { width: clamp(130px, 22%, 180px); }
+}
